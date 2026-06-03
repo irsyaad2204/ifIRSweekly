@@ -1,3 +1,8 @@
+<?php
+require_once "connection.php";
+$query = mysqli_query($connection, "SELECT * FROM mahasiswa");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,16 +46,46 @@
             <th >Aksi</th>
         </tr>
         <tr>
-            <td align="center">1</td>
-            <td>JOKOWI</td>
-            <td>239576276</td>
-            <td><img src="assets/images/presiden_jokowi.jpg" alt="JOKOWI" width="100px"/></td>
-            <td align="center">80</td>
-            <td align="center">85</td>
-            <td align="center">90</td>
-            <td><a href="editdata.php">
+        <?php
+        $no = 1;
+
+        while ($row = mysqli_fetch_assoc($query)):
+            ?>
+            <tr>
+                <td align="center">
+                    <?= $no++; ?>
+                </td>
+
+                <td>
+                    <?= $row['nama']; ?>
+                </td>
+
+                <td>
+                    <?= $row['nim']; ?>
+                </td>
+
+                <td>
+                    <?= $row['jurusan']; ?>
+                </td>
+
+                <td>
+                    <?= $row['email']; ?>
+                </td>
+
+                <td>
+                    <?= $row['no_hp']; ?>
+                </td>
+
+                <td align="center">
+                    <img src="assets/images/<?= $row['foto']; ?>" width="120px">
+                </td>
+
+                 <td><a href="editdata.php">
                 <button>Edit</button></a>
                 <a href="deletedata.php">
                 <button>delete</button></a>
-</body>
+            </tr>
+
+        <?php endwhile; 
+        ?>
 </html>
